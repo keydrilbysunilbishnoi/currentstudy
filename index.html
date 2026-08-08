@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saarthi — Rajasthan Exam Bulletin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EFE9D8; --paper-deep:#E5DEC7; --line:#CFC5A4;
+  --ink:#1B2A4A; --ink-soft:#4B5878; --seal:#8A2432; --seal-dark:#6B1B26;
+  --sandstone:#C98A3D; --success:#3F6B4A; --white:#FFFDF8;
+  --shadow: 0 2px 0 rgba(27,42,74,0.08);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--paper);
+  background-image:repeating-linear-gradient(transparent, transparent 27px, var(--line) 28px);
+  color:var(--ink);font-family:'Source Serif 4', serif;line-height:1.55;}
+h1,h2,h3,h4,.display{font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:.01em;color:var(--ink);margin:0;}
+.mono{font-family:'JetBrains Mono',monospace;}
+a{color:inherit;text-decoration:none;}
+button{font-family:'Rajdhani',sans-serif;cursor:pointer;}
+::selection{background:var(--sandstone);color:var(--white);}
+
+/* ---------- MASTHEAD ---------- */
+.masthead{background:var(--ink);color:var(--paper);padding:9px 20px;display:flex;justify-content:space-between;align-items:center;
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;border-bottom:3px double var(--sandstone);}
+.brand-bar{background:var(--paper);border-bottom:1px solid var(--line);padding:20px 20px 14px;text-align:center;position:relative;}
+.brand-bar h1{font-size:40px;letter-spacing:.04em;text-transform:uppercase;}
+.brand-bar .tagline{font-family:'Source Serif 4',serif;font-style:italic;color:var(--ink-soft);font-size:13px;margin-top:4px;}
+.stamp{position:absolute;top:12px;right:22px;width:68px;height:68px;border-radius:50%;border:2.5px solid var(--seal);
+  display:flex;align-items:center;justify-content:center;transform:rotate(-9deg);color:var(--seal);
+  font-family:'JetBrains Mono',monospace;font-size:8.5px;text-align:center;line-height:1.3;font-weight:600;opacity:.9;}
+.stamp .ring{position:absolute;inset:5px;border:1px solid var(--seal);border-radius:50%;}
+
+/* ---------- NAV ---------- */
+nav.tabs{display:flex;align-items:center;gap:2px;background:var(--paper-deep);border-bottom:1px solid var(--line);
+  padding:0 14px;position:sticky;top:0;z-index:30;}
+nav.tabs .left-group{display:flex;flex-wrap:wrap;}
+nav.tabs .right-group{margin-left:auto;display:flex;align-items:center;gap:4px;position:relative;}
+nav.tabs button.navbtn{background:none;border:none;padding:12px 14px;font-size:14px;font-weight:600;color:var(--ink-soft);
+  border-bottom:3px solid transparent;white-space:nowrap;}
+nav.tabs button.navbtn.active{color:var(--seal);border-bottom-color:var(--seal);}
+nav.tabs button.navbtn:hover{color:var(--ink);}
+.dropdown-wrap{position:relative;}
+.dropdown-panel{position:absolute;top:100%;left:0;background:var(--white);border:1px solid var(--line);box-shadow:0 6px 16px rgba(0,0,0,.15);
+  min-width:220px;max-height:340px;overflow-y:auto;z-index:40;display:none;}
+.dropdown-panel.open{display:block;}
+.dropdown-panel a,.dropdown-panel button{display:block;width:100%;text-align:left;padding:9px 14px;background:none;border:none;
+  font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:600;color:var(--ink);border-bottom:1px solid var(--paper-deep);}
+.dropdown-panel a:hover,.dropdown-panel button:hover{background:var(--paper);color:var(--seal);}
+.profile-icon{width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--paper);display:flex;align-items:center;
+  justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;border:none;position:relative;}
+.notif-dot{position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;background:var(--seal);border:1.5px solid var(--paper-deep);}
+.dropdown-panel.profile-menu{right:0;left:auto;min-width:190px;}
+.dropdown-panel .menu-name{padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);border-bottom:1px solid var(--paper-deep);}
+
+.progress-rail{position:sticky;top:44px;height:3px;background:var(--line);z-index:25;}
+.progress-fill{height:100%;background:var(--seal);width:0%;}
+
+.container{max-width:920px;margin:0 auto;padding:24px 18px 60px;}
+
+/* ---------- TICKER ---------- */
+.ticker-wrap{background:var(--ink);color:var(--sandstone);overflow:hidden;white-space:nowrap;padding:7px 0;margin-bottom:24px;
+  font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid var(--sandstone);border-bottom:1px solid var(--sandstone);}
+.ticker-track{display:inline-block;padding-left:100%;animation:ticker 32s linear infinite;}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-100%);}}
+.ticker-track span{margin-right:48px;}
+
+/* ---------- BULLETIN HERO ---------- */
+.bulletin{background:var(--white);border:1px solid var(--line);box-shadow:var(--shadow);padding:20px 22px;margin-bottom:0;}
+.bulletin .eyebrow{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;
+  color:var(--seal);text-transform:uppercase;margin-bottom:10px;}
+.bulletin .eyebrow::before,.bulletin .eyebrow::after{content:"";flex:1;height:1px;background:var(--line);}
+.bulletin ol{margin:0;padding-left:22px;}
+.bulletin li{margin-bottom:10px;font-size:16px;cursor:pointer;}
+.bulletin li:hover{color:var(--seal);}
+.bulletin li .cat{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sandstone);margin-right:6px;text-transform:uppercase;}
+
+/* ---------- SEARCH / CHIPS ---------- */
+.searchbar{display:flex;gap:8px;margin-bottom:18px;}
+.searchbar input{flex:1;padding:12px 14px;border:1px solid var(--line);background:var(--white);font-family:'Source Serif 4',serif;font-size:15px;color:var(--ink);}
+.searchbar input:focus{outline:2px solid var(--sandstone);}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;}
+.chip{padding:6px 13px;border:1px solid var(--ink);border-radius:20px;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:13px;background:transparent;color:var(--ink);}
+.chip.active{background:var(--ink);color:var(--paper);}
+
+/* ---------- CARDS ---------- */
+.section-title{display:flex;align-items:baseline;gap:10px;margin:30px 0 14px;}
+.section-title h2{font-size:22px;text-transform:uppercase;}
+.section-title .rule{flex:1;height:2px;background:var(--ink);}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid.three{grid-template-columns:repeat(3,1fr);}
+@media(max-width:700px){.grid,.grid.three{grid-template-columns:1fr;}}
+.card{background:var(--white);border:1px solid var(--line);box-shadow:var(--shadow);padding:16px;display:flex;flex-direction:column;gap:8px;
+  cursor:pointer;transition:transform .12s ease;}
+.card:hover{transform:translateY(-2px);border-color:var(--seal);}
+.badge{align-self:flex-start;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.05em;color:var(--seal);
+  border:1px solid var(--seal);padding:2px 8px;border-radius:12px;text-transform:uppercase;}
+.card h3{font-size:18px;line-height:1.3;}
+.card p{font-size:14px;color:var(--ink-soft);margin:0;}
+.card .meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);display:flex;justify-content:space-between;margin-top:auto;}
+
+.quiz-strip{display:flex;gap:14px;background:var(--seal);color:var(--white);padding:18px 20px;align-items:center;box-shadow:var(--shadow);margin:30px 0;}
+.quiz-strip .qtext{flex:1;}
+.quiz-strip h3{color:var(--white);font-size:19px;}
+.quiz-strip p{margin:2px 0 0;font-size:13px;opacity:.85;font-family:'Source Serif 4',serif;}
+.btn{padding:10px 18px;font-weight:700;border:none;font-size:14px;letter-spacing:.02em;background:var(--ink);color:var(--paper);border-radius:2px;}
+.btn.light{background:var(--white);color:var(--seal);}
+.btn.outline{background:transparent;border:1.5px solid var(--ink);color:var(--ink);}
+.btn:disabled{opacity:.5;cursor:not-allowed;}
+
+/* ---------- ARTICLE ---------- */
+.back-link{font-family:'Rajdhani',sans-serif;font-weight:600;color:var(--seal);background:none;border:none;font-size:14px;margin-bottom:16px;padding:0;}
+.article-head .badge{margin-bottom:10px;}
+.article-head h1{font-size:29px;line-height:1.25;margin-bottom:8px;}
+.article-meta{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-soft);margin-bottom:16px;display:flex;gap:16px;flex-wrap:wrap;}
+
+.player{background:var(--ink);color:var(--paper);padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px;position:relative;}
+.player button.playbtn{background:var(--sandstone);border:none;width:36px;height:36px;border-radius:50%;color:var(--ink);font-weight:700;font-size:14px;flex-shrink:0;}
+.player .track{flex:1;height:4px;background:rgba(255,255,255,.25);position:relative;border-radius:2px;overflow:hidden;}
+.player .track .fill{position:absolute;left:0;top:0;bottom:0;background:var(--sandstone);width:0%;}
+.player select{background:transparent;color:var(--paper);border:1px solid rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;font-size:11px;padding:3px;}
+.gear{background:none;border:1px solid rgba(255,255,255,.4);color:var(--paper);width:30px;height:30px;border-radius:50%;flex-shrink:0;font-size:14px;}
+.reader-settings{background:var(--paper-deep);border:1px solid var(--line);padding:12px 14px;margin-bottom:18px;display:none;font-size:13px;}
+.reader-settings.open{display:flex;align-items:center;justify-content:space-between;}
+.toggle{width:38px;height:20px;background:var(--line);border-radius:12px;position:relative;border:none;flex-shrink:0;}
+.toggle.on{background:var(--success);}
+.toggle .knob{position:absolute;top:2px;left:2px;width:16px;height:16px;background:var(--white);border-radius:50%;transition:left .15s;}
+.toggle.on .knob{left:20px;}
+
+.resource-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;}
+.resource-row .btn{font-size:13px;padding:9px 14px;}
+
+.article-body{font-size:17px;margin-bottom:6px;}
+.article-body p{margin:0 0 14px;}
+
+.mcq-block{background:var(--white);border:1px solid var(--line);padding:18px;margin-top:10px;}
+.mcq-q{margin-bottom:18px;padding-bottom:16px;border-bottom:1px dashed var(--line);}
+.mcq-q:last-child{border-bottom:none;}
+.mcq-q .qn{font-weight:600;margin-bottom:8px;font-family:'Rajdhani',sans-serif;font-size:16px;}
+.opt{display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid var(--line);margin-bottom:6px;font-size:14px;}
+.opt.correct{border-color:var(--success);background:#EAF1EA;}
+.opt.wrong{border-color:var(--seal);background:#F6E9EA;}
+.explain{font-size:13px;color:var(--ink-soft);font-style:italic;margin-top:6px;padding-left:4px;}
+.score-tag{font-family:'JetBrains Mono',monospace;background:var(--sandstone);color:var(--white);padding:6px 12px;display:inline-block;margin-bottom:14px;}
+
+.trend-list{background:var(--white);border:1px solid var(--line);border-left:4px solid var(--sandstone);padding:14px 18px;}
+.trend-list .titem{padding:8px 0;border-bottom:1px dashed var(--line);}
+.trend-list .titem:last-child{border-bottom:none;}
+.trend-list .exam{font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--seal);font-size:14px;}
+.trend-list .note{font-size:14px;color:var(--ink-soft);}
+
+.upcoming-box{background:var(--ink);color:var(--paper);padding:20px 22px;display:flex;align-items:center;gap:16px;box-shadow:var(--shadow);}
+.upcoming-box h3{color:var(--paper);font-size:18px;}
+.upcoming-box p{font-size:13px;opacity:.85;margin:4px 0 0;}
+
+/* ---------- TEST TAKING / LIST ---------- */
+.test-card{background:var(--white);border:1px solid var(--line);padding:16px;margin-bottom:14px;box-shadow:var(--shadow);cursor:pointer;}
+.test-card:hover{border-color:var(--seal);}
+.test-card .row{display:flex;justify-content:space-between;align-items:center;}
+.timer{font-family:'JetBrains Mono',monospace;background:var(--ink);color:var(--paper);padding:6px 12px;font-size:14px;font-weight:600;}
+.timer.low{background:var(--seal);}
+
+/* ---------- DASHBOARD / LOGIN ---------- */
+.admit-card{background:var(--white);border:2px solid var(--ink);margin-bottom:26px;display:grid;grid-template-columns:110px 1fr;overflow:hidden;}
+.admit-photo{background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:34px;font-weight:700;}
+.admit-info{padding:14px 18px;}
+.admit-info .label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em;}
+.admit-info h3{font-size:20px;margin-bottom:2px;}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:26px;}
+@media(max-width:600px){.stat-grid{grid-template-columns:repeat(2,1fr);}}
+.stat{background:var(--white);border:1px solid var(--line);padding:14px 10px;text-align:center;}
+.stat .num{font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:var(--seal);}
+.stat .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-soft);text-transform:uppercase;}
+
+.form-field{margin-bottom:14px;}
+.form-field label{display:block;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:13px;margin-bottom:5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.03em;}
+.form-field input,.form-field select,.form-field textarea{width:100%;padding:10px 12px;border:1px solid var(--line);background:var(--white);font-family:'Source Serif 4',serif;font-size:15px;color:var(--ink);}
+.form-field textarea{min-height:100px;resize:vertical;}
+.login-box{max-width:380px;margin:40px auto;background:var(--white);border:1px solid var(--line);padding:26px;box-shadow:var(--shadow);}
+.login-box h2{margin-bottom:4px;}
+.login-box p{color:var(--ink-soft);font-size:13px;margin-top:0;margin-bottom:18px;}
+
+.admin-gate{max-width:340px;margin:60px auto;text-align:center;}
+.mcq-editor{border:1px dashed var(--line);padding:12px;margin-bottom:10px;}
+.mcq-editor input{margin-bottom:6px;}
+.small-btn{font-size:12px;padding:6px 10px;background:transparent;border:1px solid var(--seal);color:var(--seal);}
+.check-row{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:14px;}
+.empty{text-align:center;padding:50px 20px;color:var(--ink-soft);font-family:'Rajdhani',sans-serif;}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:12px 22px;
+  font-family:'Rajdhani',sans-serif;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.25);z-index:100;opacity:0;transition:opacity .3s;pointer-events:none;}
+.toast.show{opacity:1;}
+
+.notif-item{background:var(--white);border:1px solid var(--line);border-left:4px solid var(--sandstone);padding:14px 16px;margin-bottom:10px;cursor:pointer;}
+.notif-item.unread{border-left-color:var(--seal);}
+.notif-item h4{font-size:15px;margin-bottom:4px;}
+.notif-item p{font-size:13px;color:var(--ink-soft);margin:0;}
+.notif-item .mono{font-size:10px;color:var(--sandstone);}
+
+.about-body,.help-body{background:var(--white);border:1px solid var(--line);padding:22px;font-size:16px;}
+.about-body p,.help-body p{margin:0 0 12px;}
+
+/* ---------- FOOTER ---------- */
+footer.site-footer{background:var(--ink);color:var(--paper);margin-top:50px;padding:40px 20px 20px;}
+.footer-grid{max-width:920px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px;}
+@media(max-width:700px){.footer-grid{grid-template-columns:1fr 1fr;}}
+footer.site-footer h4{color:var(--sandstone);font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;}
+footer.site-footer p{font-size:13px;opacity:.8;line-height:1.6;margin:0;}
+footer.site-footer a,footer.site-footer button{display:block;background:none;border:none;color:var(--paper);opacity:.85;font-size:13px;
+  padding:0 0 9px;text-align:left;font-family:'Source Serif 4',serif;}
+footer.site-footer a:hover,footer.site-footer button:hover{opacity:1;color:var(--sandstone);}
+.footer-bottom{max-width:920px;margin:30px auto 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.15);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;opacity:.6;}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <span id="todayDate">RAJASTHAN EXAM BULLETIN</span>
+  <span class="mono">DAILY DIGITAL EDITION</span>
+</div>
+<div class="brand-bar">
+  <div class="stamp"><div class="ring"></div>SAARTHI<br>PARIKSHA<br>KENDRA</div>
+  <h1>Saarthi</h1>
+  <div class="tagline">Current Affairs · PIB · SUJAS Rajasthan — daily exam preparation</div>
+</div>
+<nav class="tabs" id="tabs"></nav>
+<div class="progress-rail" id="progressRail" style="display:none"><div class="progress-fill" id="progressFill"></div></div>
+
+<div class="container" id="app"></div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <h4>Saarthi Pariksha Kendra</h4>
+      <p>Rajasthan competitive exam preparation — Current Affairs, PIB updates, SUJAS Rajasthan and state-wise GK, with practice tests built from a single shared question bank.</p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <button data-foot="home">Home</button>
+      <button data-foot="cat:PIB">PIB</button>
+      <button data-foot="cat:SUJAS Rajasthan">SUJAS Rajasthan</button>
+      <button data-foot="audio">Audio Bulletin</button>
+    </div>
+    <div>
+      <h4>Support</h4>
+      <button data-foot="about">About Us</button>
+      <button data-foot="help">Help</button>
+      <button data-foot="dashboard">My Dashboard</button>
+    </div>
+    <div>
+      <h4>Office</h4>
+      <a href="#" onclick="return false">Jodhpur, Rajasthan</a>
+      <a href="#" onclick="return false">contact@saarthi.example</a>
+      <button data-foot="admin" style="opacity:.4;font-size:11px;margin-top:10px">Admin Login</button>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span id="yr"></span> Saarthi Pariksha Kendra. All rights reserved.</span>
+    <span>Built for Rajasthan exam aspirants.</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+/* =====================================================================
+   FIREBASE SETUP — paste your project's config below (Firebase Console
+   > Project Settings > Your apps > Web app > SDK setup and config).
+   This is the ONLY section you need to edit before deploying.
+   ===================================================================== */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getFirestore, collection, doc, setDoc, getDoc, getDocs,
+  onSnapshot, query, orderBy
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD8yXtFzcRm6m7gAxfkY-GH7PYcqLa2V6w",
+  authDomain: "studycurrent.firebaseapp.com",
+  projectId: "studycurrent",
+  storageBucket: "studycurrent.firebasestorage.app",
+  messagingSenderId: "1075000880708",
+  appId: "1:1075000880708:web:8df786642e38958bfd1611",
+  measurementId: "G-5E65M6QM2C"
+};
+const fbApp = initializeApp(firebaseConfig);
+const db = getFirestore(fbApp);
+
+/* ============ STATE ============ */
+let VIEW = {name:'home'};
+let PROFILE = null;
+let READER = {autoplay:true};
+let ADMIN = false;
+let CURRENT_TEST = null;
+let DATA = {blogs:[], tests:[], notifications:[], about:'', help:''};
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+const CATEGORIES = ["Current Affairs","PIB","SUJAS Rajasthan","Rajasthan GK","India GK","Other States","Economy","Science","Environment","Editorial"];
+const STATES = ["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat","Haryana","Himachal Pradesh",
+  "Jharkhand","Karnataka","Kerala","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Punjab",
+  "Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal","Delhi (NCT)","Jammu & Kashmir","Ladakh"];
+let activeChip = "All";
+
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+function closeAllDropdowns(){ document.querySelectorAll('.dropdown-panel').forEach(d=>d.classList.remove('open')); }
+document.addEventListener('click', (e)=>{
+  if(!e.target.closest('.dropdown-wrap')) closeAllDropdowns();
+});
+
+/* ============ FIRESTORE HELPERS ============ */
+// Shared content (blogs, tests, notifications, about, help) lives in Firestore
+// and updates live for every visitor via onSnapshot listeners below.
+// Personal student data lives in the 'students' collection, keyed by mobile number.
+
+async function saveProfile(){
+  if(!PROFILE) return;
+  try{ await setDoc(doc(db,'students',PROFILE.mobile), PROFILE); }
+  catch(e){ console.error(e); toast('Could not save — check your internet connection.'); }
+}
+function saveReaderSettings(){
+  try{ localStorage.setItem('saarthi_reader', JSON.stringify(READER)); }catch(e){}
+}
+function loadReaderSettings(){
+  try{ const r = localStorage.getItem('saarthi_reader'); if(r) READER = JSON.parse(r); }catch(e){}
+}
+async function publishBlogToDB(blog){
+  await setDoc(doc(db,'blogs',blog.id), blog);
+}
+async function pushNotification(notif){
+  await setDoc(doc(db,'notifications',notif.id), notif);
+}
+async function saveAboutToDB(text){ await setDoc(doc(db,'settings','about'), {text}); }
+async function saveHelpToDB(text){ await setDoc(doc(db,'settings','help'), {text}); }
+async function saveTestToDB(test){ await setDoc(doc(db,'tests',test.id), test); }
+
+/* ============ SEED DATA ============ */
+function seedBlogs(){
+  return [
+    { id:"b1", title:"SUJAS Rajasthan: July 2026 Edition Highlights", category:"SUJAS Rajasthan", state:"Rajasthan",
+      excerpt:"Key government schemes and achievements covered in this month's SUJAS magazine, relevant for RAS and REET aspirants.",
+      date:"2026-08-05", readMins:6,
+      content:[
+        "The July 2026 edition of SUJAS (Rajasthan's official monthly magazine) focuses on the state's progress across irrigation, rural employment, and digital governance initiatives.",
+        "A dedicated section covers the expansion of the Indira Gandhi Canal command area, along with updates on groundwater recharge projects across the arid western districts.",
+        "The magazine also profiles this year's state award recipients in education and handicrafts, a recurring theme that frequently appears in RAS mains general studies papers.",
+        "Aspirants should note the exact scheme names and launch years mentioned, since SUJAS-based questions in past papers have tested precise figures and dates."
+      ],
+      mcqs:[
+        {q:"SUJAS is published by which authority?", options:["Government of Rajasthan","UPSC","Ministry of Education, GoI","NITI Aayog"], correct:0, explanation:"SUJAS is the official monthly magazine published by the Government of Rajasthan's Department of Information and Public Relations."},
+        {q:"The Indira Gandhi Canal primarily benefits which region of Rajasthan?", options:["Southern hilly belt","Eastern plains","Western arid districts","Northern hill stations"], correct:2, explanation:"The canal was built to irrigate the arid western districts such as Bikaner, Jaisalmer and Ganganagar."}
+      ],
+      previousExamTrend:[
+        {exam:"RAS Mains 2023", note:"Asked to name SUJAS-covered irrigation schemes along with their launch years."},
+        {exam:"Rajasthan Patwari 2022", note:"MCQ on the department responsible for publishing SUJAS."}
+      ],
+      relatedIds:["b3"]
+    },
+    { id:"b2", title:"PIB Update: New National Digital Agriculture Mission", category:"PIB", state:null,
+      excerpt:"Union Cabinet approves a mission to digitise farmer records and expand access to real-time crop advisories nationwide.",
+      date:"2026-08-04", readMins:5,
+      content:[
+        "The Press Information Bureau confirmed Cabinet approval for a nationwide Digital Agriculture Mission aimed at creating a unified farmer database.",
+        "The mission will integrate land records, crop history, and soil health data to enable targeted advisories and faster disbursal of subsidies.",
+        "State governments, including Rajasthan, will be responsible for on-ground data collection through village-level agriculture officers."
+      ],
+      mcqs:[
+        {q:"The Digital Agriculture Mission is coordinated at which level for ground data collection?", options:["District Collector","Village-level agriculture officers","State Chief Secretary","Union Ministry directly"], correct:1, explanation:"The PIB release specifies village-level agriculture officers as responsible for on-ground data collection."}
+      ],
+      previousExamTrend:[{exam:"SSC CGL 2023", note:"PIB-based current affairs questions on Cabinet-approved missions are asked almost every year."}],
+      relatedIds:["b4"]
+    },
+    { id:"b3", title:"Rajasthan GK: Major Forts and Their Builders", category:"Rajasthan GK", state:"Rajasthan",
+      excerpt:"A quick revision list of Rajasthan's major forts, the dynasties that built them, and the years of construction — a recurring exam topic.",
+      date:"2026-08-02", readMins:8,
+      content:[
+        "Rajasthan's forts are a frequently tested topic across RAS, Patwari, and REET exams, often asked as direct match-the-following questions.",
+        "Mehrangarh Fort in Jodhpur was built by Rao Jodha in 1459 and remains one of the best-preserved forts in India.",
+        "Chittorgarh Fort, the largest fort complex in India, is associated with the Sisodia dynasty and multiple sieges through medieval history.",
+        "Amber Fort near Jaipur, built primarily by Raja Man Singh I, later saw major additions under Sawai Jai Singh II."
+      ],
+      mcqs:[
+        {q:"Mehrangarh Fort was built by:", options:["Rana Kumbha","Rao Jodha","Sawai Jai Singh II","Raja Man Singh I"], correct:1, explanation:"Mehrangarh Fort was founded by Rao Jodha in 1459."},
+        {q:"Which is the largest fort complex in India?", options:["Amber Fort","Mehrangarh Fort","Chittorgarh Fort","Kumbhalgarh Fort"], correct:2, explanation:"Chittorgarh Fort is recognised as the largest fort complex in India by area."},
+        {q:"Amber Fort is located near which city?", options:["Udaipur","Jodhpur","Jaipur","Bikaner"], correct:2, explanation:"Amber Fort lies about 11 km from Jaipur."}
+      ],
+      previousExamTrend:[
+        {exam:"Rajasthan Patwari 2022", note:"Direct match-the-following question on fort builders."},
+        {exam:"REET 2021", note:"MCQ on the largest fort complex in India."}
+      ],
+      relatedIds:["b1"]
+    },
+    { id:"b4", title:"Economy Watch: RBI Holds Repo Rate Steady", category:"Economy", state:null,
+      excerpt:"The Reserve Bank of India's latest monetary policy committee meeting keeps the repo rate unchanged amid stable inflation readings.",
+      date:"2026-08-01", readMins:4,
+      content:[
+        "The Monetary Policy Committee voted to hold the repo rate steady, citing inflation readings within the target band over the past two quarters.",
+        "The RBI Governor noted that food price volatility remains the key risk to the outlook for the rest of the fiscal year.",
+        "Banking sector liquidity conditions were described as adequate, with no immediate change expected to the cash reserve ratio."
+      ],
+      mcqs:[{q:"Which committee decides the repo rate in India?", options:["Finance Ministry","Monetary Policy Committee","SEBI Board","Planning Commission"], correct:1, explanation:"The Monetary Policy Committee (MPC) of the RBI sets the repo rate."}],
+      previousExamTrend:[{exam:"IBPS PO 2023", note:"Repo rate and MPC composition are asked almost every cycle in banking exam GK."}],
+      relatedIds:["b2"]
+    },
+    { id:"b5", title:"Punjab: Crop Diversification Scheme Expanded", category:"Other States", state:"Punjab",
+      excerpt:"Punjab government widens its crop diversification incentive to more districts to reduce paddy-water stress.",
+      date:"2026-07-30", readMins:4,
+      content:[
+        "The Punjab government has expanded its crop diversification scheme to additional districts, offering per-acre incentives to farmers shifting away from paddy.",
+        "The move aims to ease groundwater stress in central Punjab, where water tables have fallen sharply over the past two decades."
+      ],
+      mcqs:[{q:"Punjab's crop diversification scheme mainly targets a shift away from which crop?", options:["Wheat","Paddy","Cotton","Sugarcane"], correct:1, explanation:"The scheme incentivises farmers to move away from water-intensive paddy cultivation."}],
+      previousExamTrend:[{exam:"Punjab PCS 2023", note:"State schemes related to water conservation are a recurring topic."}],
+      relatedIds:[]
+    }
+  ];
+}
+function seedTests(){
+  return [
+    {id:"t1", title:"Weekly Current Affairs Test — Aug Week 1", category:"Current Affairs", durationSec:180, questionRefs:[["b1",0],["b1",1],["b2",0],["b4",0]]},
+    {id:"t2", title:"Rajasthan GK — Forts Topic Test", category:"Rajasthan GK", durationSec:150, questionRefs:[["b3",0],["b3",1],["b3",2]]}
+  ];
+}
+function seedAbout(){
+  return "Saarthi Pariksha Kendra was built for Rajasthan's competitive exam aspirants — students preparing for RAS, Patwari, REET and allied state exams who need a single reliable place for daily current affairs, PIB updates and SUJAS Rajasthan coverage.\n\nEvery article on this platform is paired with a practice test drawn from a shared question bank, along with notes on how the topic has appeared in past exams — so your reading time turns directly into exam-ready recall.\n\nThis platform is run by a small team based in Rajasthan and is updated daily.";
+}
+function seedHelp(){
+  return "Getting started: Create your student profile from the Dashboard using your name and mobile number — no OTP needed.\n\nReading an article: Every article opens with an audio version at the top. You can turn autoplay on or off using the settings icon next to the player.\n\nTests: Each article ends with a short practice quiz and, further down, a longer 'upcoming exam pattern' test. Your scores are saved automatically to your dashboard.\n\nNotifications: Once logged in, you'll see updates here whenever a new article or test is published.\n\nNeed more help? Write to us at contact@saarthi.example.";
+}
+
+function resolveTestQuestions(test){
+  return test.questionRefs.map(([blogId, idx])=>{
+    const blog = DATA.blogs.find(b=>b.id===blogId);
+    return blog ? blog.mcqs[idx] : null;
+  }).filter(Boolean);
+}
+
+/* ============ INIT ============ */
+function safeRerender(){
+  // Live updates shouldn't interrupt someone mid-way through the admin form or an active test.
+  if(VIEW.name==='admin' || VIEW.name==='taketest') return;
+  renderTabs(); render();
+}
+
+async function init(){
+  document.getElementById('todayDate').textContent = new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}).toUpperCase() + " · RAJASTHAN EXAM BULLETIN";
+  loadReaderSettings();
+
+  // One-time seed: only writes sample content if the database is empty.
+  const blogsSnap = await getDocs(collection(db,'blogs'));
+  if(blogsSnap.empty){
+    for(const b of seedBlogs()) await setDoc(doc(db,'blogs',b.id), b);
+  }
+  const testsSnap = await getDocs(collection(db,'tests'));
+  if(testsSnap.empty){
+    for(const t of seedTests()) await setDoc(doc(db,'tests',t.id), t);
+  }
+  const notifSnap = await getDocs(collection(db,'notifications'));
+  if(notifSnap.empty){
+    await setDoc(doc(db,'notifications','n1'), {id:'n1', title:'Welcome to Saarthi', message:'Daily current affairs, PIB and SUJAS Rajasthan updates start today.', date:new Date().toISOString().slice(0,10), link:null});
+  }
+  const aboutSnap = await getDoc(doc(db,'settings','about'));
+  if(!aboutSnap.exists()) await setDoc(doc(db,'settings','about'), {text:seedAbout()});
+  const helpSnap = await getDoc(doc(db,'settings','help'));
+  if(!helpSnap.exists()) await setDoc(doc(db,'settings','help'), {text:seedHelp()});
+
+  // Live listeners — any change from any device/admin reflects here instantly.
+  onSnapshot(collection(db,'blogs'), snap=>{ DATA.blogs = snap.docs.map(d=>d.data()); safeRerender(); });
+  onSnapshot(collection(db,'tests'), snap=>{ DATA.tests = snap.docs.map(d=>d.data()); safeRerender(); });
+  onSnapshot(collection(db,'notifications'), snap=>{ DATA.notifications = snap.docs.map(d=>d.data()); safeRerender(); });
+  onSnapshot(doc(db,'settings','about'), d=>{ if(d.exists()){ DATA.about = d.data().text; safeRerender(); } });
+  onSnapshot(doc(db,'settings','help'), d=>{ if(d.exists()){ DATA.help = d.data().text; safeRerender(); } });
+
+  // Restore login from this device (mobile number remembered locally).
+  const savedMobile = localStorage.getItem('saarthi_mobile');
+  if(savedMobile){
+    const sDoc = await getDoc(doc(db,'students',savedMobile));
+    if(sDoc.exists()) PROFILE = sDoc.data();
+  }
+
+  renderTabs();
+  render();
+}
+
+/* ============ NAV ============ */
+function renderTabs(){
+  const nav = document.getElementById('tabs');
+  const unread = PROFILE ? DATA.notifications.filter(n=>!(PROFILE.readNotifIds||[]).includes(n.id)).length : 0;
+  nav.innerHTML = `
+    <div class="left-group">
+      <button class="navbtn ${VIEW.name==='home'?'active':''}" data-nav="home">Home</button>
+      <button class="navbtn ${VIEW.name==='cat' && VIEW.cat==='PIB'?'active':''}" data-nav="cat:PIB">PIB</button>
+      <button class="navbtn ${VIEW.name==='cat' && VIEW.cat==='SUJAS Rajasthan'?'active':''}" data-nav="cat:SUJAS Rajasthan">SUJAS</button>
+      <button class="navbtn ${VIEW.name==='audio'?'active':''}" data-nav="audio">Rajasthan Audio Bulletin</button>
+      <div class="dropdown-wrap">
+        <button class="navbtn ${VIEW.name==='state'?'active':''}" id="statesBtn">States ▾</button>
+        <div class="dropdown-panel" id="statesPanel">
+          ${STATES.map(s=>`<button data-state="${s}">${s}</button>`).join('')}
+        </div>
+      </div>
+      <button class="navbtn ${VIEW.name==='about'?'active':''}" data-nav="about">About</button>
+    </div>
+    <div class="right-group">
+      <div class="dropdown-wrap">
+        <button class="profile-icon" id="profileBtn">${PROFILE ? PROFILE.name.charAt(0).toUpperCase() : '?'}${unread>0?'<span class="notif-dot"></span>':''}</button>
+        <div class="dropdown-panel profile-menu" id="profilePanel">
+          ${PROFILE ? `
+            <div class="menu-name">Signed in as ${PROFILE.name}</div>
+            <button data-nav="dashboard">My Dashboard</button>
+            <button data-nav="notifications">Notifications ${unread>0?`(${unread})`:''}</button>
+            <button data-nav="help">Help</button>
+            <button id="logoutMenuBtn">Log out</button>
+          ` : `
+            <button data-nav="dashboard">Login</button>
+            <button data-nav="help">Help</button>
+          `}
+        </div>
+      </div>
+    </div>
+  `;
+  nav.querySelectorAll('[data-nav]').forEach(b=>{
+    b.onclick = ()=>{
+      closeAllDropdowns();
+      const val = b.dataset.nav;
+      if(val.startsWith('cat:')) VIEW = {name:'cat', cat:val.slice(4)};
+      else VIEW = {name:val};
+      renderTabs(); render(); window.scrollTo({top:0,behavior:'smooth'});
+    };
+  });
+  document.getElementById('statesBtn').onclick = (e)=>{
+    e.stopPropagation();
+    const p = document.getElementById('statesPanel');
+    const open = p.classList.contains('open');
+    closeAllDropdowns();
+    if(!open) p.classList.add('open');
+  };
+  document.getElementById('statesPanel').querySelectorAll('[data-state]').forEach(b=>{
+    b.onclick = ()=>{ closeAllDropdowns(); VIEW={name:'state', state:b.dataset.state}; renderTabs(); render(); window.scrollTo({top:0,behavior:'smooth'}); };
+  });
+  document.getElementById('profileBtn').onclick = (e)=>{
+    e.stopPropagation();
+    const p = document.getElementById('profilePanel');
+    const open = p.classList.contains('open');
+    closeAllDropdowns();
+    if(!open) p.classList.add('open');
+  };
+  const logoutBtn = document.getElementById('logoutMenuBtn');
+  if(logoutBtn) logoutBtn.onclick = ()=>{ PROFILE=null; localStorage.removeItem('saarthi_mobile'); closeAllDropdowns(); renderTabs(); render(); };
+
+  document.getElementById('tabs').querySelectorAll('button[data-foot]').forEach(()=>{}); // no-op placeholder
+}
+document.querySelectorAll('[data-foot]').forEach(()=>{});
+document.body.addEventListener('click', (e)=>{
+  const fb = e.target.closest('[data-foot]');
+  if(!fb) return;
+  const val = fb.dataset.foot;
+  if(val.startsWith('cat:')) VIEW = {name:'cat', cat:val.slice(4)};
+  else VIEW = {name:val};
+  renderTabs(); render(); window.scrollTo({top:0,behavior:'smooth'});
+});
+
+/* ============ RENDER ROUTER ============ */
+function render(){
+  document.getElementById('progressRail').style.display = VIEW.name==='blog' ? 'block' : 'none';
+  const app = document.getElementById('app');
+  if(VIEW.name==='home') return renderHome(app);
+  if(VIEW.name==='cat') return renderListView(app, DATA.blogs.filter(b=>b.category===VIEW.cat), VIEW.cat);
+  if(VIEW.name==='state') return renderListView(app, DATA.blogs.filter(b=>b.state===VIEW.state), VIEW.state);
+  if(VIEW.name==='audio') return renderAudioBulletin(app);
+  if(VIEW.name==='about') return renderAbout(app);
+  if(VIEW.name==='help') return renderHelp(app);
+  if(VIEW.name==='notifications') return renderNotifications(app);
+  if(VIEW.name==='blog') return renderBlog(app);
+  if(VIEW.name==='taketest') return renderTakeTest(app);
+  if(VIEW.name==='dashboard') return renderDashboard(app);
+  if(VIEW.name==='admin') return renderAdmin(app);
+}
+
+function blogCardHtml(b){
+  return `<div class="card" data-open="${b.id}">
+      <span class="badge">${b.category}</span>
+      <h3>${b.title}</h3>
+      <p>${b.excerpt}</p>
+      <div class="meta"><span class="mono">${b.date}</span><span class="mono">${b.readMins} min read</span></div>
+    </div>`;
+}
+function bindOpenCards(root){
+  root.querySelectorAll('[data-open]').forEach(el=>{
+    el.onclick = ()=>{ VIEW={name:'blog', id:el.dataset.open}; renderTabs(); render(); window.scrollTo({top:0,behavior:'smooth'}); };
+  });
+}
+
+/* ============ HOME ============ */
+function renderHome(app){
+  const top3 = [...DATA.blogs].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,3);
+  const tickerItems = [...DATA.blogs].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,6);
+  const filtered = activeChip==="All" ? DATA.blogs : DATA.blogs.filter(b=>b.category===activeChip);
+
+  app.innerHTML = `
+    <div class="bulletin">
+      <div class="eyebrow">Today's Notice Board</div>
+      <ol>${top3.map(b=>`<li data-open="${b.id}"><span class="cat">${b.category}</span>${b.title}</li>`).join('')}</ol>
+    </div>
+    <div class="ticker-wrap"><div class="ticker-track">${tickerItems.map(b=>`<span>● ${b.title}</span>`).join('')}${tickerItems.map(b=>`<span>● ${b.title}</span>`).join('')}</div></div>
+
+    <div class="searchbar"><input id="searchInput" placeholder="Search blogs, PIB updates, GK topics..."></div>
+    <div class="chips" id="chips">
+      <button class="chip ${activeChip==='All'?'active':''}" data-chip="All">All</button>
+      ${CATEGORIES.map(c=>`<button class="chip ${activeChip===c?'active':''}" data-chip="${c}">${c}</button>`).join('')}
+    </div>
+
+    <div class="quiz-strip">
+      <div class="qtext"><h3>Daily Quiz</h3><p>4 questions from today's current affairs — test yourself in under 3 minutes.</p></div>
+      <button class="btn light" id="dailyQuizBtn">Start</button>
+    </div>
+
+    <div class="section-title"><h2>Latest Posts</h2><div class="rule"></div></div>
+    <div class="grid" id="blogGrid"></div>
+  `;
+
+  const grid = document.getElementById('blogGrid');
+  grid.innerHTML = filtered.length ? [...filtered].sort((a,b)=>new Date(b.date)-new Date(a.date)).map(blogCardHtml).join('')
+    : `<div class="empty">Nothing here yet in this category. Check back soon or try another filter.</div>`;
+  bindOpenCards(app);
+
+  document.getElementById('chips').querySelectorAll('.chip').forEach(c=>{ c.onclick = ()=>{ activeChip = c.dataset.chip; render(); }; });
+  document.getElementById('dailyQuizBtn').onclick = ()=>{ VIEW={name:'taketest', id:'t1'}; renderTabs(); render(); };
+  document.getElementById('searchInput').oninput = (e)=>{
+    const q = e.target.value.toLowerCase();
+    const cards = DATA.blogs.filter(b=> (activeChip==='All'||b.category===activeChip) && (b.title.toLowerCase().includes(q) || b.excerpt.toLowerCase().includes(q)));
+    document.getElementById('blogGrid').innerHTML = cards.length ? cards.map(blogCardHtml).join('') : `<div class="empty">No matches for "${e.target.value}".</div>`;
+    bindOpenCards(app);
+  };
+}
+
+/* ============ CATEGORY / STATE LIST VIEW ============ */
+function renderListView(app, list, label){
+  app.innerHTML = `
+    <div class="section-title"><h2>${label}</h2><div class="rule"></div></div>
+    <div class="grid" id="blogGrid"></div>
+  `;
+  document.getElementById('blogGrid').innerHTML = list.length ? [...list].sort((a,b)=>new Date(b.date)-new Date(a.date)).map(blogCardHtml).join('')
+    : `<div class="empty">No articles for "${label}" yet.</div>`;
+  bindOpenCards(app);
+}
+
+/* ============ AUDIO BULLETIN ============ */
+function renderAudioBulletin(app){
+  app.innerHTML = `
+    <div class="section-title"><h2>Rajasthan Audio Bulletin</h2><div class="rule"></div></div>
+    <p style="color:var(--ink-soft);font-size:14px;margin-top:-8px">Listen to every article — updated daily across Current Affairs, PIB and SUJAS Rajasthan.</p>
+    <div id="audioList"></div>
+  `;
+  document.getElementById('audioList').innerHTML = [...DATA.blogs].sort((a,b)=>new Date(b.date)-new Date(a.date)).map(b=>`
+    <div class="test-card" data-open="${b.id}">
+      <div class="row"><div><span class="badge">${b.category}</span><h3 style="font-size:16px;margin-top:6px">${b.title}</h3></div>
+      <button class="btn outline" style="font-size:13px">▶ Listen</button></div>
+    </div>
+  `).join('');
+  bindOpenCards(app);
+}
+
+/* ============ ABOUT / HELP ============ */
+function renderAbout(app){
+  app.innerHTML = `
+    <div class="section-title"><h2>About Us</h2><div class="rule"></div></div>
+    <div class="about-body">${DATA.about.split('\n').filter(Boolean).map(p=>`<p>${p}</p>`).join('')}</div>
+  `;
+}
+function renderHelp(app){
+  app.innerHTML = `
+    <div class="section-title"><h2>Help</h2><div class="rule"></div></div>
+    <div class="help-body">${DATA.help.split('\n').filter(Boolean).map(p=>`<p>${p}</p>`).join('')}</div>
+  `;
+}
+
+/* ============ NOTIFICATIONS ============ */
+async function renderNotifications(app){
+  if(!PROFILE){ VIEW={name:'dashboard'}; renderTabs(); render(); toast('Log in to view notifications.'); return; }
+  app.innerHTML = `
+    <div class="section-title"><h2>Notifications</h2><div class="rule"></div></div>
+    <div id="notifList"></div>
+  `;
+  const list = [...DATA.notifications].reverse();
+  document.getElementById('notifList').innerHTML = list.length ? list.map(n=>{
+    const unread = !(PROFILE.readNotifIds||[]).includes(n.id);
+    return `<div class="notif-item ${unread?'unread':''}" data-nid="${n.id}" data-link='${n.link?JSON.stringify(n.link):''}'>
+      <span class="mono">${n.date}</span><h4>${n.title}</h4><p>${n.message}</p>
+    </div>`;
+  }).join('') : `<div class="empty">No notifications yet.</div>`;
+
+  document.querySelectorAll('[data-nid]').forEach(el=>{
+    el.onclick = async ()=>{
+      const id = el.dataset.nid;
+      if(!PROFILE.readNotifIds) PROFILE.readNotifIds=[];
+      if(!PROFILE.readNotifIds.includes(id)){ PROFILE.readNotifIds.push(id); await saveProfile(); renderTabs(); }
+      const linkRaw = el.dataset.link;
+      if(linkRaw){ const link=JSON.parse(linkRaw); VIEW={name:link.view, id:link.id}; renderTabs(); render(); window.scrollTo({top:0,behavior:'smooth'}); }
+      else el.classList.remove('unread');
+    };
+  });
+}
+
+/* ============ BLOG DETAIL ============ */
+async function renderBlog(app){
+  const blog = DATA.blogs.find(b=>b.id===VIEW.id);
+  if(!blog){ app.innerHTML = `<div class="empty">Post not found.</div>`; return; }
+
+  const isBookmarked = PROFILE && PROFILE.bookmarks.includes(blog.id);
+  const related = (blog.relatedIds && blog.relatedIds.length ? blog.relatedIds.map(id=>DATA.blogs.find(b=>b.id===id)).filter(Boolean)
+    : DATA.blogs.filter(b=>b.category===blog.category && b.id!==blog.id)).slice(0,3);
+
+  app.innerHTML = `
+    <button class="back-link" id="backBtn">&larr; Back</button>
+    <div class="article-head">
+      <span class="badge">${blog.category}</span>
+      <h1>${blog.title}</h1>
+      <div class="article-meta">
+        <span class="mono">Published ${blog.date}</span>
+        <span class="mono">${blog.readMins} min read</span>
+        <button class="small-btn" id="bookmarkBtn" style="${isBookmarked?'background:var(--seal);color:#fff':''}">${isBookmarked?'★ Bookmarked':'☆ Bookmark'}</button>
+      </div>
+    </div>
+
+    <div class="player">
+      <button class="playbtn" id="playBtn">▶</button>
+      <div class="track"><div class="fill" id="playFill"></div></div>
+      <span class="mono" id="playTime">0:00</span>
+      <select id="speedSel"><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="1.5">1.5x</option><option value="2">2x</option></select>
+      <button class="gear" id="gearBtn" title="Reader settings">⚙</button>
+    </div>
+    <div class="reader-settings" id="readerSettings">
+      <span>Autoplay audio when opening an article</span>
+      <button class="toggle ${READER.autoplay?'on':''}" id="autoplayToggle"><span class="knob"></span></button>
+    </div>
+
+    <div class="resource-row">
+      <button class="btn outline" id="pdfBtn">⬇ Download PDF Notes</button>
+      <button class="btn outline" id="printBtn">🖨 Print</button>
+      <button class="btn outline" id="shareBtn">↗ Share</button>
+    </div>
+
+    <div class="article-body">${blog.content.map(p=>`<p>${p}</p>`).join('')}</div>
+
+    <div class="section-title"><h2>Practice MCQs</h2><div class="rule"></div></div>
+    <div class="mcq-block" id="mcqBlock"></div>
+
+    ${blog.previousExamTrend && blog.previousExamTrend.length ? `
+      <div class="section-title"><h2>How This Has Appeared Before</h2><div class="rule"></div></div>
+      <div class="trend-list">
+        ${blog.previousExamTrend.map(t=>`<div class="titem"><span class="exam">${t.exam}</span><div class="note">${t.note}</div></div>`).join('')}
+      </div>
+    ` : ''}
+
+    <div class="section-title"><h2>Upcoming Exam Test</h2><div class="rule"></div></div>
+    <div class="upcoming-box">
+      <div style="flex:1"><h3>Practice for how this could be asked next</h3><p>A short timed test built from this topic, in the pattern of upcoming exams.</p></div>
+      <button class="btn light" id="upcomingTestBtn">Start Test</button>
+    </div>
+
+    ${related.length ? `
+      <div class="section-title"><h2>Related Articles</h2><div class="rule"></div></div>
+      <div class="grid three" id="relatedGrid"></div>
+    ` : ''}
+  `;
+
+  document.getElementById('backBtn').onclick = ()=>{ VIEW={name:'home'}; renderTabs(); render(); };
+  document.getElementById('pdfBtn').onclick = ()=> toast('PDF download will be enabled once notes are uploaded by admin.');
+  document.getElementById('printBtn').onclick = ()=> window.print();
+  document.getElementById('shareBtn').onclick = ()=> toast('Link copied (demo).');
+  document.getElementById('upcomingTestBtn').onclick = ()=>{
+    const inlineTest = {id:'up-'+blog.id, title:'Upcoming Exam Pattern Test — '+blog.title, category:blog.category,
+      durationSec: Math.max(60, blog.mcqs.length*45), questionRefs: blog.mcqs.map((_,i)=>[blog.id,i])};
+    VIEW = {name:'taketest', id:inlineTest.id, inlineTest}; renderTabs(); render();
+  };
+
+  document.getElementById('bookmarkBtn').onclick = async ()=>{
+    if(!PROFILE){ toast('Please log in from your profile menu to bookmark.'); return; }
+    const i = PROFILE.bookmarks.indexOf(blog.id);
+    if(i>-1) PROFILE.bookmarks.splice(i,1); else PROFILE.bookmarks.push(blog.id);
+    await saveProfile();
+    renderBlog(app);
+  };
+
+  if(related.length){
+    document.getElementById('relatedGrid').innerHTML = related.map(b=>`
+      <div class="card" data-open="${b.id}"><span class="badge">${b.category}</span><h3 style="font-size:16px">${b.title}</h3><p>${b.excerpt}</p></div>
+    `).join('');
+  }
+  bindOpenCards(app);
+
+  document.getElementById('gearBtn').onclick = ()=> document.getElementById('readerSettings').classList.toggle('open');
+  document.getElementById('autoplayToggle').onclick = async ()=>{
+    READER.autoplay = !READER.autoplay;
+    document.getElementById('autoplayToggle').classList.toggle('on', READER.autoplay);
+    saveReaderSettings();
+  };
+
+  // fake audio player
+  let playing=false, pct=0, timerRef=null;
+  function tick(){
+    const speed = parseFloat(document.getElementById('speedSel').value);
+    pct = Math.min(100, pct + speed*1.2);
+    document.getElementById('playFill').style.width = pct+'%';
+    const secs = Math.floor(pct/100*240);
+    document.getElementById('playTime').textContent = Math.floor(secs/60)+':'+String(secs%60).padStart(2,'0');
+    if(pct>=100){ playing=false; document.getElementById('playBtn').textContent='▶'; clearInterval(timerRef); }
+  }
+  function startPlay(){ playing=true; document.getElementById('playBtn').textContent='❚❚'; timerRef=setInterval(tick,200); }
+  function stopPlay(){ playing=false; document.getElementById('playBtn').textContent='▶'; clearInterval(timerRef); }
+  document.getElementById('playBtn').onclick = ()=>{ playing ? stopPlay() : startPlay(); };
+  if(READER.autoplay) startPlay();
+
+  window.onscroll = ()=>{
+    if(VIEW.name!=='blog') return;
+    const h = document.documentElement;
+    const p = (h.scrollTop)/(h.scrollHeight-h.clientHeight)*100;
+    const fillEl = document.getElementById('progressFill');
+    if(fillEl) fillEl.style.width = p+'%';
+  };
+
+  renderMcqBlock(blog);
+
+  if(PROFILE && !PROFILE.readHistory.includes(blog.id)){
+    PROFILE.readHistory.push(blog.id);
+    await saveProfile();
+  }
+}
+
+function renderMcqBlock(blog){
+  const block = document.getElementById('mcqBlock');
+  block.innerHTML = blog.mcqs.map((q,qi)=>`
+    <div class="mcq-q" data-qi="${qi}">
+      <div class="qn">${qi+1}. ${q.q}</div>
+      ${q.options.map((o,oi)=>`<label class="opt" data-oi="${oi}"><input type="radio" name="q${qi}" value="${oi}"> ${o}</label>`).join('')}
+      <div class="explain" style="display:none"></div>
+    </div>
+  `).join('') + `<button class="btn" id="submitMcq" style="margin-top:6px">Check Answers</button><div id="mcqScore"></div>`;
+
+  document.getElementById('submitMcq').onclick = async ()=>{
+    let score=0;
+    blog.mcqs.forEach((q,qi)=>{
+      const chosen = document.querySelector(`input[name="q${qi}"]:checked`);
+      const qDiv = block.querySelector(`[data-qi="${qi}"]`);
+      qDiv.querySelectorAll('.opt').forEach((optEl,oi)=>{
+        if(oi===q.correct) optEl.classList.add('correct');
+        if(chosen && parseInt(chosen.value)===oi && oi!==q.correct) optEl.classList.add('wrong');
+      });
+      if(chosen && parseInt(chosen.value)===q.correct) score++;
+      qDiv.querySelector('.explain').style.display='block';
+      qDiv.querySelector('.explain').textContent = 'Explanation: '+q.explanation;
+    });
+    document.getElementById('mcqScore').innerHTML = `<div class="score-tag">Score: ${score} / ${blog.mcqs.length}</div>`;
+    document.getElementById('submitMcq').disabled = true;
+    if(PROFILE){
+      PROFILE.testHistory.push({testId:'blog-mcq:'+blog.id, title:blog.title+' (Practice MCQ)', score, total:blog.mcqs.length, date:new Date().toISOString().slice(0,10)});
+      await saveProfile();
+    }
+  };
+}
+
+/* ============ TAKE TEST ============ */
+function renderTakeTest(app){
+  const test = VIEW.inlineTest || DATA.tests.find(t=>t.id===VIEW.id);
+  if(!test){ app.innerHTML=`<div class="empty">Test not found.</div>`; return; }
+  const questions = resolveTestQuestions(test);
+  CURRENT_TEST = { test, questions, answers:new Array(questions.length).fill(null), remaining:test.durationSec, submitted:false, timerId:null };
+  drawTest(app);
+  CURRENT_TEST.timerId = setInterval(()=>{
+    if(CURRENT_TEST.submitted){ clearInterval(CURRENT_TEST.timerId); return; }
+    CURRENT_TEST.remaining--;
+    const timerEl = document.getElementById('testTimer');
+    if(timerEl){
+      const m=Math.floor(CURRENT_TEST.remaining/60), s=CURRENT_TEST.remaining%60;
+      timerEl.textContent = `${m}:${String(s).padStart(2,'0')}`;
+      timerEl.classList.toggle('low', CURRENT_TEST.remaining<=20);
+    }
+    if(CURRENT_TEST.remaining<=0){ submitTest(app); }
+  },1000);
+}
+function drawTest(app){
+  const {test, questions} = CURRENT_TEST;
+  const m=Math.floor(CURRENT_TEST.remaining/60), s=CURRENT_TEST.remaining%60;
+  app.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <h2 style="font-size:20px">${test.title}</h2>
+      <span class="timer" id="testTimer">${m}:${String(s).padStart(2,'0')}</span>
+    </div>
+    <div class="mcq-block" id="testQBlock">
+      ${questions.map((q,qi)=>`
+        <div class="mcq-q">
+          <div class="qn">${qi+1}. ${q.q}</div>
+          ${q.options.map((o,oi)=>`<label class="opt" data-oi="${oi}"><input type="radio" name="tq${qi}" value="${oi}"> ${o}</label>`).join('')}
+        </div>
+      `).join('')}
+    </div>
+    <button class="btn" id="submitTestBtn" style="margin-top:12px">Submit Test</button>
+  `;
+  questions.forEach((q,qi)=>{
+    app.querySelectorAll(`input[name="tq${qi}"]`).forEach(inp=>{ inp.onchange = ()=>{ CURRENT_TEST.answers[qi] = parseInt(inp.value); }; });
+  });
+  document.getElementById('submitTestBtn').onclick = ()=> submitTest(app);
+}
+async function submitTest(app){
+  if(CURRENT_TEST.submitted) return;
+  CURRENT_TEST.submitted = true;
+  clearInterval(CURRENT_TEST.timerId);
+  const {test, questions, answers} = CURRENT_TEST;
+  let score=0;
+  const block = document.getElementById('testQBlock');
+  const qDivs = block.querySelectorAll('.mcq-q');
+  questions.forEach((q,qi)=>{
+    const correct = q.correct, chosen = answers[qi];
+    if(chosen===correct) score++;
+    qDivs[qi].querySelectorAll('.opt').forEach((optEl,oi)=>{
+      if(oi===correct) optEl.classList.add('correct');
+      if(chosen===oi && oi!==correct) optEl.classList.add('wrong');
+    });
+    const exp=document.createElement('div'); exp.className='explain'; exp.textContent='Explanation: '+q.explanation;
+    qDivs[qi].appendChild(exp);
+  });
+  document.getElementById('submitTestBtn').outerHTML = `<div class="score-tag">Final Score: ${score} / ${questions.length}</div>
+    <div style="margin-top:14px"><button class="btn outline" id="retryBtn">Retry Test</button> <button class="btn" id="doneBtn">Done</button></div>`;
+  document.getElementById('retryBtn').onclick = ()=>{ VIEW={name:'taketest', id:test.id, inlineTest: VIEW.inlineTest}; renderTabs(); render(); };
+  document.getElementById('doneBtn').onclick = ()=>{ VIEW={name:'home'}; renderTabs(); render(); };
+  if(PROFILE){
+    PROFILE.testHistory.push({testId:test.id, title:test.title, score, total:questions.length, date:new Date().toISOString().slice(0,10)});
+    await saveProfile();
+  }
+}
+
+/* ============ DASHBOARD ============ */
+function renderDashboard(app){
+  if(!PROFILE){
+    app.innerHTML = `
+      <div class="login-box">
+        <h2>Student Login</h2>
+        <p>Enter your name and mobile number to track your progress. No OTP needed right now.</p>
+        <div class="form-field"><label>Full Name</label><input id="nameIn" placeholder="e.g. Priya Sharma"></div>
+        <div class="form-field"><label>Mobile Number</label><input id="mobileIn" placeholder="10-digit number" maxlength="10"></div>
+        <button class="btn" id="loginBtn" style="width:100%">Login / Register</button>
+      </div>
+    `;
+    document.getElementById('loginBtn').onclick = async ()=>{
+      const name = document.getElementById('nameIn').value.trim();
+      const mobile = document.getElementById('mobileIn').value.trim();
+      if(!name || mobile.length<10){ toast('Enter a valid name and 10-digit mobile number.'); return; }
+      const existing = await getDoc(doc(db,'students',mobile));
+      if(existing.exists()){
+        PROFILE = existing.data(); // returning student — restore their saved progress
+      } else {
+        PROFILE = {name, mobile, readHistory:[], testHistory:[], bookmarks:[], readNotifIds:[]};
+        await saveProfile();
+      }
+      localStorage.setItem('saarthi_mobile', mobile);
+      renderTabs(); render();
+    };
+    return;
+  }
+
+  const attempts = PROFILE.testHistory.length;
+  const avg = attempts ? Math.round(PROFILE.testHistory.reduce((s,t)=>s+(t.score/t.total*100),0)/attempts) : 0;
+
+  app.innerHTML = `
+    <div class="admit-card">
+      <div class="admit-photo">${PROFILE.name.charAt(0).toUpperCase()}</div>
+      <div class="admit-info">
+        <span class="label">Student Admit Card</span>
+        <h3>${PROFILE.name}</h3>
+        <span class="mono" style="font-size:12px;color:var(--ink-soft)">Mobile: ${PROFILE.mobile}</span><br>
+        <button class="small-btn" id="logoutBtn" style="margin-top:8px">Log out</button>
+      </div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="num">${PROFILE.readHistory.length}</div><div class="lbl">Blogs Read</div></div>
+      <div class="stat"><div class="num">${attempts}</div><div class="lbl">Tests Taken</div></div>
+      <div class="stat"><div class="num">${avg}%</div><div class="lbl">Avg Score</div></div>
+      <div class="stat"><div class="num">${PROFILE.bookmarks.length}</div><div class="lbl">Bookmarks</div></div>
+    </div>
+    <div class="section-title"><h2>Test History</h2><div class="rule"></div></div>
+    <div id="historyList">${attempts ? [...PROFILE.testHistory].reverse().map(t=>`
+        <div class="test-card"><div class="row"><span>${t.title}</span><span class="mono">${t.score}/${t.total} · ${t.date}</span></div></div>
+      `).join('') : `<div class="empty">No tests taken yet — open any article to try a Practice MCQ.</div>`}</div>
+    <div class="section-title"><h2>Bookmarked Posts</h2><div class="rule"></div></div>
+    <div class="grid" id="bmGrid"></div>
+  `;
+  document.getElementById('logoutBtn').onclick = ()=>{ PROFILE=null; localStorage.removeItem('saarthi_mobile'); renderTabs(); render(); };
+  const bmBlogs = DATA.blogs.filter(b=>PROFILE.bookmarks.includes(b.id));
+  document.getElementById('bmGrid').innerHTML = bmBlogs.length ? bmBlogs.map(b=>`
+    <div class="card" data-open="${b.id}"><span class="badge">${b.category}</span><h3>${b.title}</h3><p>${b.excerpt}</p></div>
+  `).join('') : `<div class="empty" style="grid-column:1/-1">No bookmarks yet.</div>`;
+  bindOpenCards(app);
+}
+
+/* ============ ADMIN ============ */
+let draftMcqs = [];
+function renderAdmin(app){
+  if(!ADMIN){
+    app.innerHTML = `
+      <div class="admin-gate">
+        <h2>Admin Login</h2>
+        <p style="color:var(--ink-soft);font-size:13px">Demo password: <span class="mono">admin123</span></p>
+        <div class="form-field"><input id="adminPass" type="password" placeholder="Password"></div>
+        <button class="btn" id="adminLoginBtn" style="width:100%">Enter Admin Panel</button>
+      </div>
+    `;
+    document.getElementById('adminLoginBtn').onclick = ()=>{
+      if(document.getElementById('adminPass').value === 'admin123'){ ADMIN=true; render(); }
+      else toast('Incorrect password.');
+    };
+    return;
+  }
+
+  app.innerHTML = `
+    <div class="section-title"><h2>Admin — New Article</h2><div class="rule"></div></div>
+    <div class="form-field"><label>Title</label><input id="atitle" placeholder="e.g. PIB Update: ..."></div>
+    <div class="form-field"><label>Category</label><select id="acat">${CATEGORIES.map(c=>`<option value="${c}">${c}</option>`).join('')}</select></div>
+    <div class="form-field"><label>State (only for Other States category)</label>
+      <select id="astate"><option value="">— none —</option>${STATES.map(s=>`<option value="${s}">${s}</option>`).join('')}</select>
+    </div>
+    <div class="form-field"><label>Excerpt</label><textarea id="aexcerpt" style="min-height:60px"></textarea></div>
+    <div class="form-field"><label>Content (one paragraph per line)</label><textarea id="acontent" placeholder="Paragraph 1&#10;Paragraph 2..."></textarea></div>
+    <div class="form-field"><label>Previous Exam Trend (one per line — Exam Name | note)</label><textarea id="atrend" placeholder="RAS Mains 2023 | Asked about..."></textarea></div>
+    <div class="form-field"><label>Related Articles (pick up to 3)</label>
+      <div id="relatedPicker">${DATA.blogs.map(b=>`<label class="check-row"><input type="checkbox" value="${b.id}"> ${b.title}</label>`).join('')}</div>
+    </div>
+
+    <div class="section-title" style="margin-top:20px"><h2 style="font-size:16px">Practice MCQs</h2><div class="rule"></div></div>
+    <div id="mcqEditors"></div>
+    <button class="btn outline" id="addMcqBtn" style="margin-bottom:16px">+ Add Question</button><br>
+    <button class="btn" id="publishBtn">Publish Article</button>
+
+    <div class="section-title" style="margin-top:40px"><h2 style="font-size:16px">Send Notification</h2><div class="rule"></div></div>
+    <div class="form-field"><label>Title</label><input id="ntitle"></div>
+    <div class="form-field"><label>Message</label><textarea id="nmessage" style="min-height:50px"></textarea></div>
+    <button class="btn outline" id="sendNotifBtn">Send to All Students</button>
+
+    <div class="section-title" style="margin-top:40px"><h2 style="font-size:16px">Edit About Page</h2><div class="rule"></div></div>
+    <div class="form-field"><textarea id="aboutEdit" style="min-height:100px">${DATA.about}</textarea></div>
+    <button class="btn outline" id="saveAboutBtn">Save About</button>
+
+    <div class="section-title" style="margin-top:40px"><h2 style="font-size:16px">Edit Help Page</h2><div class="rule"></div></div>
+    <div class="form-field"><textarea id="helpEdit" style="min-height:100px">${DATA.help}</textarea></div>
+    <button class="btn outline" id="saveHelpBtn">Save Help</button>
+
+    <div class="section-title" style="margin-top:40px"><h2 style="font-size:16px">All Articles (${DATA.blogs.length})</h2><div class="rule"></div></div>
+    <div id="adminBlogList"></div>
+  `;
+
+  function drawMcqEditors(){
+    document.getElementById('mcqEditors').innerHTML = draftMcqs.map((m,i)=>`
+      <div class="mcq-editor" data-i="${i}">
+        <input placeholder="Question text" value="${m.q}" data-f="q">
+        ${[0,1,2,3].map(oi=>`<input placeholder="Option ${String.fromCharCode(65+oi)}" value="${m.options[oi]||''}" data-f="opt${oi}">`).join('')}
+        <select data-f="correct">${[0,1,2,3].map(oi=>`<option value="${oi}" ${m.correct===oi?'selected':''}>Correct: Option ${String.fromCharCode(65+oi)}</option>`).join('')}</select>
+        <input placeholder="Explanation" value="${m.explanation}" data-f="explanation" style="margin-top:6px">
+        <button class="small-btn" data-remove="${i}" style="margin-top:6px">Remove question</button>
+      </div>
+    `).join('');
+    document.querySelectorAll('.mcq-editor input,.mcq-editor select').forEach(inp=>{
+      inp.oninput = ()=>{
+        const i = parseInt(inp.closest('.mcq-editor').dataset.i);
+        const f = inp.dataset.f;
+        if(f==='q') draftMcqs[i].q = inp.value;
+        else if(f==='correct') draftMcqs[i].correct = parseInt(inp.value);
+        else if(f==='explanation') draftMcqs[i].explanation = inp.value;
+        else if(f.startsWith('opt')){ draftMcqs[i].options[parseInt(f.slice(3))] = inp.value; }
+      };
+    });
+    document.querySelectorAll('[data-remove]').forEach(b=>{ b.onclick = ()=>{ draftMcqs.splice(parseInt(b.dataset.remove),1); drawMcqEditors(); }; });
+  }
+  drawMcqEditors();
+
+  document.getElementById('addMcqBtn').onclick = ()=>{ draftMcqs.push({q:'', options:['','','',''], correct:0, explanation:''}); drawMcqEditors(); };
+
+  document.getElementById('relatedPicker').addEventListener('change', (e)=>{
+    const checked = document.querySelectorAll('#relatedPicker input:checked');
+    if(checked.length>3){ e.target.checked=false; toast('You can pick up to 3 related articles.'); }
+  });
+
+  document.getElementById('publishBtn').onclick = async ()=>{
+    const title = document.getElementById('atitle').value.trim();
+    const category = document.getElementById('acat').value;
+    const state = document.getElementById('astate').value || null;
+    const excerpt = document.getElementById('aexcerpt').value.trim();
+    const contentRaw = document.getElementById('acontent').value.trim();
+    const trendRaw = document.getElementById('atrend').value.trim();
+    const relatedIds = [...document.querySelectorAll('#relatedPicker input:checked')].map(i=>i.value);
+    if(!title || !excerpt || !contentRaw){ toast('Fill in title, excerpt and content.'); return; }
+    const validMcqs = draftMcqs.filter(m=>m.q && m.options.every(o=>o));
+    const previousExamTrend = trendRaw ? trendRaw.split('\n').filter(Boolean).map(line=>{
+      const [exam, note] = line.split('|'); return {exam:(exam||'').trim(), note:(note||'').trim()};
+    }) : [];
+    const blog = {
+      id:'b'+Date.now(), title, category, state, excerpt,
+      date:new Date().toISOString().slice(0,10),
+      readMins: Math.max(2, Math.round(contentRaw.split('\n').join(' ').split(' ').length/200)),
+      content: contentRaw.split('\n').filter(Boolean),
+      mcqs: validMcqs, previousExamTrend, relatedIds
+    };
+    await publishBlogToDB(blog);
+    await pushNotification({id:'n'+Date.now(), title:'New Article: '+title, message:excerpt, date:blog.date, link:{view:'blog', id:blog.id}});
+    draftMcqs = [];
+    toast('Article published live — every visitor will see it instantly!');
+    render();
+  };
+
+  document.getElementById('sendNotifBtn').onclick = async ()=>{
+    const title = document.getElementById('ntitle').value.trim();
+    const message = document.getElementById('nmessage').value.trim();
+    if(!title || !message){ toast('Fill in title and message.'); return; }
+    await pushNotification({id:'n'+Date.now(), title, message, date:new Date().toISOString().slice(0,10), link:null});
+    document.getElementById('ntitle').value=''; document.getElementById('nmessage').value='';
+    toast('Notification sent live to all students.');
+  };
+
+  document.getElementById('saveAboutBtn').onclick = async ()=>{
+    const text = document.getElementById('aboutEdit').value;
+    await saveAboutToDB(text); toast('About page updated live.');
+  };
+  document.getElementById('saveHelpBtn').onclick = async ()=>{
+    const text = document.getElementById('helpEdit').value;
+    await saveHelpToDB(text); toast('Help page updated live.');
+  };
+
+  document.getElementById('adminBlogList').innerHTML = DATA.blogs.map(b=>`
+    <div class="test-card"><div class="row"><span>${b.title}</span><span class="mono">${b.category} · ${b.mcqs.length} MCQs</span></div></div>
+  `).join('');
+}
+
+/* ============ START ============ */
+init();
+</script>
+</body>
+</html>
