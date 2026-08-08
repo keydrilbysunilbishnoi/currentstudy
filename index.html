@@ -424,8 +424,8 @@ function seedBlogs(){
 }
 function seedTests(){
   return [
-    {id:"t1", title:"Weekly Current Affairs Test — Aug Week 1", category:"Current Affairs", durationSec:180, questionRefs:[["b1",0],["b1",1],["b2",0],["b4",0]]},
-    {id:"t2", title:"Rajasthan GK — Forts Topic Test", category:"Rajasthan GK", durationSec:150, questionRefs:[["b3",0],["b3",1],["b3",2]]}
+    {id:"t1", title:"Weekly Current Affairs Test — Aug Week 1", category:"Current Affairs", durationSec:180, questionRefs:[{blogId:"b1",idx:0},{blogId:"b1",idx:1},{blogId:"b2",idx:0},{blogId:"b4",idx:0}]},
+    {id:"t2", title:"Rajasthan GK — Forts Topic Test", category:"Rajasthan GK", durationSec:150, questionRefs:[{blogId:"b3",idx:0},{blogId:"b3",idx:1},{blogId:"b3",idx:2}]}
   ];
 }
 function seedAbout(){
@@ -436,7 +436,7 @@ function seedHelp(){
 }
 
 function resolveTestQuestions(test){
-  return test.questionRefs.map(([blogId, idx])=>{
+  return test.questionRefs.map(({blogId, idx})=>{
     const blog = DATA.blogs.find(b=>b.id===blogId);
     return blog ? blog.mcqs[idx] : null;
   }).filter(Boolean);
@@ -453,36 +453,41 @@ async function init(){
   document.getElementById('todayDate').textContent = new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}).toUpperCase() + " · RAJASTHAN EXAM BULLETIN";
   loadReaderSettings();
 
-  // One-time seed: only writes sample content if the database is empty.
-  const blogsSnap = await getDocs(collection(db,'blogs'));
-  if(blogsSnap.empty){
-    for(const b of seedBlogs()) await setDoc(doc(db,'blogs',b.id), b);
-  }
-  const testsSnap = await getDocs(collection(db,'tests'));
-  if(testsSnap.empty){
-    for(const t of seedTests()) await setDoc(doc(db,'tests',t.id), t);
-  }
-  const notifSnap = await getDocs(collection(db,'notifications'));
-  if(notifSnap.empty){
-    await setDoc(doc(db,'notifications','n1'), {id:'n1', title:'Welcome to Saarthi', message:'Daily current affairs, PIB and SUJAS Rajasthan updates start today.', date:new Date().toISOString().slice(0,10), link:null});
-  }
-  const aboutSnap = await getDoc(doc(db,'settings','about'));
-  if(!aboutSnap.exists()) await setDoc(doc(db,'settings','about'), {text:seedAbout()});
-  const helpSnap = await getDoc(doc(db,'settings','help'));
-  if(!helpSnap.exists()) await setDoc(doc(db,'settings','help'), {text:seedHelp()});
+  try{
+    // One-time seed: only writes sample content if the database is empty.
+    const blogsSnap = await getDocs(collection(db,'blogs'));
+    if(blogsSnap.empty){
+      for(const b of seedBlogs()) await setDoc(doc(db,'blogs',b.id), b);
+    }
+    const testsSnap = await getDocs(collection(db,'tests'));
+    if(testsSnap.empty){
+      for(const t of seedTests()) await setDoc(doc(db,'tests',t.id), t);
+    }
+    const notifSnap = await getDocs(collection(db,'notifications'));
+    if(notifSnap.empty){
+      await setDoc(doc(db,'notifications','n1'), {id:'n1', title:'Welcome to Saarthi', message:'Daily current affairs, PIB and SUJAS Rajasthan updates start today.', date:new Date().toISOString().slice(0,10), link:null});
+    }
+    const aboutSnap = await getDoc(doc(db,'settings','about'));
+    if(!aboutSnap.exists()) await setDoc(doc(db,'settings','about'), {text:seedAbout()});
+    const helpSnap = await getDoc(doc(db,'settings','help'));
+    if(!helpSnap.exists()) await setDoc(doc(db,'settings','help'), {text:seedHelp()});
 
-  // Live listeners — any change from any device/admin reflects here instantly.
-  onSnapshot(collection(db,'blogs'), snap=>{ DATA.blogs = snap.docs.map(d=>d.data()); safeRerender(); });
-  onSnapshot(collection(db,'tests'), snap=>{ DATA.tests = snap.docs.map(d=>d.data()); safeRerender(); });
-  onSnapshot(collection(db,'notifications'), snap=>{ DATA.notifications = snap.docs.map(d=>d.data()); safeRerender(); });
-  onSnapshot(doc(db,'settings','about'), d=>{ if(d.exists()){ DATA.about = d.data().text; safeRerender(); } });
-  onSnapshot(doc(db,'settings','help'), d=>{ if(d.exists()){ DATA.help = d.data().text; safeRerender(); } });
+    // Live listeners — any change from any device/admin reflects here instantly.
+    onSnapshot(collection(db,'blogs'), snap=>{ DATA.blogs = snap.docs.map(d=>d.data()); safeRerender(); });
+    onSnapshot(collection(db,'tests'), snap=>{ DATA.tests = snap.docs.map(d=>d.data()); safeRerender(); });
+    onSnapshot(collection(db,'notifications'), snap=>{ DATA.notifications = snap.docs.map(d=>d.data()); safeRerender(); });
+    onSnapshot(doc(db,'settings','about'), d=>{ if(d.exists()){ DATA.about = d.data().text; safeRerender(); } });
+    onSnapshot(doc(db,'settings','help'), d=>{ if(d.exists()){ DATA.help = d.data().text; safeRerender(); } });
 
-  // Restore login from this device (mobile number remembered locally).
-  const savedMobile = localStorage.getItem('saarthi_mobile');
-  if(savedMobile){
-    const sDoc = await getDoc(doc(db,'students',savedMobile));
-    if(sDoc.exists()) PROFILE = sDoc.data();
+    // Restore login from this device (mobile number remembered locally).
+    const savedMobile = localStorage.getItem('saarthi_mobile');
+    if(savedMobile){
+      const sDoc = await getDoc(doc(db,'students',savedMobile));
+      if(sDoc.exists()) PROFILE = sDoc.data();
+    }
+  } catch(e){
+    console.error('Firebase init error:', e);
+    toast('Could not connect to the database — check Firebase config/rules.');
   }
 
   renderTabs();
@@ -777,7 +782,7 @@ async function renderBlog(app){
   document.getElementById('shareBtn').onclick = ()=> toast('Link copied (demo).');
   document.getElementById('upcomingTestBtn').onclick = ()=>{
     const inlineTest = {id:'up-'+blog.id, title:'Upcoming Exam Pattern Test — '+blog.title, category:blog.category,
-      durationSec: Math.max(60, blog.mcqs.length*45), questionRefs: blog.mcqs.map((_,i)=>[blog.id,i])};
+      durationSec: Math.max(60, blog.mcqs.length*45), questionRefs: blog.mcqs.map((_,i)=>({blogId:blog.id, idx:i}))};
     VIEW = {name:'taketest', id:inlineTest.id, inlineTest}; renderTabs(); render();
   };
 
